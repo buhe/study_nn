@@ -1,4 +1,6 @@
 import torch
+import numpy as np
+import matplotlib.pyplot as plt
 
 xs = torch.tensor([[1.0] ,[2.0] ,[3.0]])
 ys = torch.tensor([[0.0] ,[0.0] ,[1.0]])
@@ -29,7 +31,14 @@ for i in range(1000):
 print(f'w: {model.linear.weight.item()}')
 print(f'b: {model.linear.bias.item()}')
 
-x_test = torch.tensor([[4.0]])
+x_test_np = np.linspace(0, 10, 100)
+x_test = torch.tensor(x_test_np, dtype=torch.float32).view((100, 1))
 y_test = model(x_test)
+y_test = y_test.detach().numpy()
 
-print(f'y_pred: {y_test.item()}')
+plt.plot(x_test_np, y_test, color='red')
+plt.plot([0, 10], [0.5, 0.5], color='blue')
+plt.xlabel('h')
+plt.ylabel('p')
+plt.grid()
+plt.show()

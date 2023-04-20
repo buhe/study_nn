@@ -10,17 +10,19 @@ class LogisticRegressionModel(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.linear1 = torch.nn.Linear(8, 4)
-        self.linear2 = torch.nn.Linear(4, 1)
+        self.linear2 = torch.nn.Linear(4, 2)
+        self.linear3 = torch.nn.Linear(2, 1)
         
     def forward(self, x):
         y_pred = torch.sigmoid(self.linear1(x))
         y_pred = torch.sigmoid(self.linear2(y_pred))
+        y_pred = torch.sigmoid(self.linear3(y_pred))
         return y_pred
     
 # trainer
 model = LogisticRegressionModel()
 loss_fn = torch.nn.BCELoss(reduction='mean')
-opt = torch.optim.SGD(model.parameters(), lr=0.01)
+opt = torch.optim.SGD(model.parameters(), lr=0.1)
 
 for i in range(100):
     # for x, y in zip(xs, ys):

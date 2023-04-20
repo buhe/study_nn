@@ -17,13 +17,13 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 opt = torch.optim.SGD(model.parameters(), lr=0.01)
 
 for i in range(1000):
-    for x, y in zip(xs, ys):
-        y_pred = model(x)
-        loss = loss_fn(y_pred, y)
-        print(f'loss: {loss.item()}')
-        opt.zero_grad()
-        loss.backward()
-        opt.step()
+    # for x, y in zip(xs, ys):
+    y_pred = model(xs)
+    loss = loss_fn(y_pred, ys)
+    print(f'loss: {loss.item()}')
+    opt.zero_grad()
+    loss.backward()
+    opt.step()
         
 print(f'w: {model.linear.weight.item()}')
 print(f'b: {model.linear.bias.item()}')

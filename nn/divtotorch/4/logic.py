@@ -27,11 +27,12 @@ opt = torch.optim.SGD(model.parameters(), lr=0.1)
 
 for i in range(100):
     # for x, y in zip(xs, ys):
+    opt.zero_grad()
     y_pred = model(xs)
     loss = loss_fn(y_pred, ys)
     print(f'loss: {loss.item()}')
     
-    opt.zero_grad()
+    
     loss.backward()
 
     opt.step()

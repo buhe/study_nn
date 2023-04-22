@@ -20,12 +20,12 @@ class Net(torch.nn.Module):
         self.conv1 = torch.nn.Conv2d(1, 10, kernel_size=5)
         self.conv2 = torch.nn.Conv2d(10, 20, kernel_size=5)
         self.pooling = torch.nn.MaxPool2d(2)
-        self.fc1 = torch.nn.Linear(320, 50)
+        self.fc1 = torch.nn.Linear(320, 10) # 320=4x4x20
 
     def forward(self, x):
         batch_size = x.size(0)
-        x = self.pooling(torch.relu(self.conv1(x)))
-        x = self.pooling(torch.relu(self.conv2(x)))
+        x = self.pooling(torch.relu(self.conv1(x))) #28-4/2 = 12
+        x = self.pooling(torch.relu(self.conv2(x))) #12-4/2 = 4
         x = x.view(batch_size, -1)
         x = self.fc1(x)
         return x

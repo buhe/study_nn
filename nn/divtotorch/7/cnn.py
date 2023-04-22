@@ -55,7 +55,7 @@ class Net(torch.nn.Module):
         self.fc1 = torch.nn.Linear(1408, 10) #1408 = 88 * 4 * 4 是卷积的结果
 
     def forward(self, x):
-        in_size = x.size(0)
+        in_size = x.size(0) # 就是 batch_size , batch_size = 64
         # print('in size ' + str(in_size))
         x = self.pooling(torch.nn.functional.relu(self.conv1(x))) # (28 - 4) / 2 = 12
         x = self.incept1(x)
